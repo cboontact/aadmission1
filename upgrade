@@ -1,1 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service Expiration Notice — CloudVPS Hosting</title>
 
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  body{
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background:#f1f5f9;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    color:#334155;
+  }
+
+  /* ─── Header / Branding ─── */
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:24px;
+  }
+  .brand-logo{
+    width:40px; height:40px;
+    background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    color:#fff;
+    box-shadow:0 3px 10px rgba(59,130,246,0.3);
+  }
+  .brand-text{
+    font-size:19px;
+    font-weight:700;
+    color:#1e293b;
+    letter-spacing:-0.3px;
+  }
+  .brand-text span{
+    color:#3b82f6;
+  }
+
+  /* ─── Main Card ─── */
+  .card{
+    background:#ffffff;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    max-width:560px;
+    width:100%;
+    overflow:hidden;
+    box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .card-top-bar{
+    height:4px;
+    background:linear-gradient(90deg,#ef4444,#dc2626,#b91c1c);
+  }
+
+  .card-body{
+    padding:32px 36px 30px;
+  }
+
+  /* Status badge */
+  .status-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:#fef2f2;
+    color:#dc2626;
+    font-size:12px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:0.8px;
+    padding:5px 14px;
+    border-radius:20px;
+    border:1px solid #fecaca;
+    margin-bottom:16px;
+  }
+  .status-badge .dot{
+    width:7px; height:7px;
+    background:#ef4444;
+    border-radius:50%;
+    animation:blink 1.4s infinite;
+  }
+  @keyframes blink{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.3; }
+  }
+
+  .card-title{
+    font-size:21px;
+    font-weight:700;
+    color:#0f172a;
+    margin-bottom:10px;
+    line-height:1.35;
+  }
+  .card-desc{
+    font-size:14.5px;
+    color:#64748b;
+    line-height:1.7;
+    margin-bottom:24px;
+  }
+
+  /* ─── Server Info ─── */
+  .server-info{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+    padding:16px 20px;
+    margin-bottom:24px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px 24px;
+  }
+  .info-item{
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  .info-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.7px;
+    color:#94a3b8;
+    font-weight:500;
+  }
+  .info-value{
+    font-size:14px;
+    color:#334155;
+    font-weight:500;
+  }
+  .info-value.highlight{
+    color:#dc2626;
+    font-weight:700;
+  }
+
+  /* ─── Countdown ─── */
+  .countdown-section{
+    text-align:center;
+    margin-bottom:24px;
+  }
+  .countdown-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1.2px;
+    color:#94a3b8;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .countdown{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+  }
+  .time-block{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+    border:none;
+    border-radius:12px;
+    padding:14px 8px 12px;
+    min-width:72px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(220,53,69,0.3);
+    transition:transform 0.2s, box-shadow 0.2s;
+  }
+  .time-block:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(220,53,69,0.4);
+  }
+  .time-block .number{
+    font-size:30px;
+    font-weight:800;
+    color:#fff;
+    display:block;
+    line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .time-block .unit{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:rgba(255,255,255,0.85);
+    margin-top:6px;
+    display:block;
+    font-weight:500;
+  }
+  .countdown-separator{
+    display:flex;
+    align-items:center;
+    font-size:22px;
+    font-weight:700;
+    color:#cbd5e1;
+    padding-bottom:10px;
+  }
+
+  .deadline-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-top:14px;
+    font-size:13px;
+    color:#94a3b8;
+  }
+  .deadline-row i{
+    font-size:13px;
+  }
+
+  /* ─── Warning ─── */
+  .warning-box{
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    border-radius:10px;
+    padding:14px 18px;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .warning-box i{
+    color:#dc2626;
+    font-size:15px;
+    margin-top:2px;
+    flex-shrink:0;
+  }
+  .warning-box p{
+    font-size:13px;
+    color:#991b1b;
+    line-height:1.65;
+    font-weight:500;
+  }
+
+  /* ─── Ref Footer ─── */
+  .ref-id{
+    text-align:center;
+    margin-top:20px;
+    font-family:'Courier New', monospace;
+    font-size:11px;
+    color:#94a3b8;
+  }
+
+  /* ─── Expired State ─── */
+  .expired-msg{
+    text-align:center;
+    padding:20px;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#dc2626;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:700;
+    animation:pulse 2s infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.6; }
+  }
+
+  /* ─── Responsive ─── */
+  @media(max-width:520px){
+    .card-body{ padding:24px 20px 22px; }
+    .server-info{ grid-template-columns:1fr; gap:10px; }
+    .time-block{ min-width:58px; padding:12px 6px 10px; }
+    .time-block .number{ font-size:24px; }
+    .countdown-separator{ font-size:18px; }
+    .card-title{ font-size:18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Branding -->
+<div class="brand">
+  <div class="brand-logo">
+    <i class="fa-solid fa-server"></i>
+  </div>
+  <div class="brand-text">Cloud<span>VPS</span> Hosting</div>
+</div>
+
+<!-- Main Card -->
+<div class="card">
+  <div class="card-top-bar"></div>
+  <div class="card-body">
+
+    <!-- Status Badge -->
+    <div class="status-badge">
+      <span class="dot"></span>
+      Action Required
+    </div>
+
+    <h1 class="card-title">Your Server Subscription Is Expiring</h1>
+    <p class="card-desc">
+      Your current hosting plan is approaching its expiration date.
+      To ensure uninterrupted service and prevent data loss, please renew your subscription before the deadline.
+    </p>
+
+    <!-- Server Info -->
+    <div class="server-info">
+      <div class="info-item">
+        <span class="info-label">Server ID</span>
+        <span class="info-value">VPS-TH-48291</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Plan</span>
+        <span class="info-value">Business Pro</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Region</span>
+        <span class="info-value">Asia-Pacific (Bangkok)</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Status</span>
+        <span class="info-value highlight">Expiring Soon</span>
+      </div>
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-section">
+      <div class="countdown-label">Time Remaining Until Expiration</div>
+      <div class="countdown" id="countdown">
+        <div class="time-block">
+          <span class="number" id="days">--</span>
+          <span class="unit">Days</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="time-block">
+          <span class="number" id="hours">--</span>
+          <span class="unit">Hours</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="time-block">
+          <span class="number" id="minutes">--</span>
+          <span class="unit">Min</span>
+        </div>
+        <span class="countdown-separator">:</span>
+        <div class="time-block">
+          <span class="number" id="seconds">--</span>
+          <span class="unit">Sec</span>
+        </div>
+      </div>
+      <div class="deadline-row">
+        <i class="fa-regular fa-calendar"></i>
+        Expiration: February 19, 2026 at 23:59 (GMT+7)
+      </div>
+    </div>
+
+    <!-- Warning -->
+    <div class="warning-box">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <p>
+        Failure to renew before the expiration date will result in 
+        immediate suspension of all services. After a 72‑hour grace period, 
+        all data including databases, files, and backups will be 
+        <strong>permanently deleted</strong> and cannot be recovered.
+      </p>
+    </div>
+
+  </div>
+</div>
+
+<!-- Ref ID -->
+<div class="ref-id">Ref: NOTICE-20260216-48291</div>
+
+<script>
+  const deadline = new Date('2026-02-19T23:59:59+07:00').getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = deadline - now;
+
+    if (diff <= 0) {
+      document.getElementById('countdown').innerHTML =
+        '<div class="expired-msg"><i class="fa-solid fa-circle-xmark"></i>&ensp;SERVICE EXPIRED — Your server has been suspended</div>';
+      const dl = document.querySelector('.deadline-row');
+      if (dl) dl.style.display = 'none';
+      return;
+    }
+
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    document.getElementById('days').textContent    = String(d).padStart(2, '0');
+    document.getElementById('hours').textContent   = String(h).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(m).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
